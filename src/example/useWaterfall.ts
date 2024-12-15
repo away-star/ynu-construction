@@ -122,7 +122,8 @@ const useWaterfall = () => {
                 ],
                 briefIntro: "云大历史文化象征",
                 year: "始建于1923年",
-                location: "东陆校区"
+                location: "东陆校区",
+                travelStars: 5
             },
             {
                 id: 2,
@@ -141,7 +142,8 @@ const useWaterfall = () => {
                 ],
                 briefIntro: "云大标志性建筑",
                 year: "1924年建成",
-                location: "东陆校区"
+                location: "东陆校区",
+                travelStars: 5
             },
             {
                 id: 3,
@@ -155,7 +157,8 @@ const useWaterfall = () => {
                 relatedPersons: [],
                 briefIntro: "秋日美景打卡地",
                 year: "",
-                location: "呈贡校区"
+                location: "呈贡校区",
+                travelStars: 5
             },
             {
                 id: 4,
@@ -174,7 +177,8 @@ const useWaterfall = () => {
                 ],
                 briefIntro: "古典韵味建筑",
                 year: "1939年修建",
-                location: "东陆校区"
+                location: "东陆校区",
+                travelStars: 5
             },
             {
                 id: 5,
@@ -193,7 +197,8 @@ const useWaterfall = () => {
                 ],
                 briefIntro: "知识汇聚之所",
                 year: "1989年扩建",
-                location: "东陆校区"
+                location: "东陆校区",
+                travelStars: 5
             },
             {
                 id: 6,
@@ -207,7 +212,8 @@ const useWaterfall = () => {
                 relatedPersons: [],
                 briefIntro: "校园独特景致",
                 year: "2000年建成",
-                location: "呈贡校区"
+                location: "呈贡校区",
+                travelStars: 5
             },
             {
                 id: 7,
@@ -226,7 +232,8 @@ const useWaterfall = () => {
                 ],
                 briefIntro: "文化活动中心",
                 year: "",
-                location: "呈贡校区"
+                location: "呈贡校区",
+                travelStars: 5
             },
             {
                 id: 8,
@@ -245,7 +252,8 @@ const useWaterfall = () => {
                 ],
                 briefIntro: "历史科举见证",
                 year: "始建较早",
-                location: "东陆校区"
+                location: "东陆校区",
+                travelStars: 5
             },
             {
                 id: 9,
@@ -264,7 +272,8 @@ const useWaterfall = () => {
                 ],
                 briefIntro: "现代学习空间",
                 year: "2010年启用",
-                location: "呈贡校区"
+                location: "呈贡校区",
+                travelStars: 5
             },
             {
                 id: 10,
@@ -278,7 +287,8 @@ const useWaterfall = () => {
                 relatedPersons: [],
                 briefIntro: "春日赏花佳处",
                 year: "",
-                location: "呈贡校区"
+                location: "呈贡校区",
+                travelStars: 5
             }
         ];
 
