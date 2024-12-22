@@ -1,10 +1,4 @@
 <template>
-<!--    <header>-->
-<!--        <strong>Vue瀑布流</strong>-->
-<!--        <small>-->
-<!--            <span class="badge text-bg-success">v{{ pkg.version }}</span>-->
-<!--        </small>-->
-<!--    </header>-->
     <div v-if="showPopup" class="page-overlay" @click.stop="showPopup = false" @click.capture="event => event.stopPropagation()"></div>
     <VirtualWaterfall
         :virtual="waterfallOption.virtual"
@@ -23,7 +17,7 @@
                     () => {
                         console.log(showPopup)
                         showPopup = true // 弹窗打开
-                    }
+                       }
                 "
                 :item="item"
                 :onlyImage="waterfallOption.onlyImage"
