@@ -29,3 +29,4 @@ vite.config.d.ts
 vite.config.js
 
 pnpm-lock.yaml
+/package-lock.json
