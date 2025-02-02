@@ -14,7 +14,7 @@
             >
                 <!-- 标题部分 -->
                 <div>
-                    <h3>{{ item.title }}</h3>
+                    <h3>{{ item.name }}</h3>
 
                     <span class="location">
                         <svg
@@ -88,7 +88,7 @@
             <Transition>
                 <img
                     v-if="loaded"
-                    :src="item.url"
+                    :src="item.img"
                     alt="图片"
                 />
                 <svg
@@ -188,7 +188,7 @@ onBeforeMount(() => {
         height.value = '100%'
         new Promise(resolve => {
             const image = new Image()
-            image.src = props.item.url
+            image.src = props.item.img
             if (image.complete) {
                 loaded.value = true
                 resolve(true)
@@ -201,7 +201,7 @@ onBeforeMount(() => {
             }
 
             image.onerror = error => {
-                console.error(props.item.url, error)
+                console.error(props.item.img, error)
                 loaded.value = true
                 resolve(true)
             }
