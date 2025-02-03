@@ -85,9 +85,13 @@ const closePopup = () => {
 }
 
 const renderedDetail = computed(() => {
+    marked.setOptions({
+        async: false, // 强制同步模式
+        // 其他配置...
+    })
     if (!selectedItem.value?.detail) return ''
     const rawMarkdown = selectedItem.value.detail
-    const cleanMarkdown = DOMPurify.sanitize(marked(rawMarkdown))
+    const cleanMarkdown = DOMPurify.sanitize(marked.parse(rawMarkdown) as string)
     return cleanMarkdown
 })
 </script>
