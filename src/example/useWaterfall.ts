@@ -105,8 +105,8 @@ const useWaterfall = () => {
                 id: 2025020301,
                 name: '图书馆',
                 img: YNUImage.library[0],
-                width: Math.floor(Math.random() * (600 - 200 + 1)) + 200,
-                height: Math.floor(Math.random() * (600 - 200 + 1)) + 200,
+                width: 330,
+                height: 540,
                 avatar: YNUImage.library[1],
                 views: Math.floor(Math.random() * 50000) + 10000,
                 relatedPersons: [
