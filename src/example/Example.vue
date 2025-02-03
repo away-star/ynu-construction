@@ -114,7 +114,7 @@ const renderedDetail = computed(() => {
 }
 
 body {
-    padding-top: 72px;
+    //padding-top: 72px;
     background: #f1f2f6;
     user-select: none;
 }
