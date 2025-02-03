@@ -78,7 +78,7 @@
             <!-- 年份与校区位置区 -->
             <div class="detail-info">
                 <span class="year">{{ item.year }}</span>
-                <span class="recommend-travel">旅游指数</span>
+                <span class="recommend-travel"><StarRating :rating="4.5" /></span>
             </div>
         </div>
         <div
@@ -165,6 +165,7 @@
 
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue'
+import StarRating from './StarRating.vue'
 
 const props = withDefaults(
     defineProps<{

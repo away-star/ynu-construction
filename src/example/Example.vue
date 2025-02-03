@@ -1,5 +1,4 @@
 <template>
-    <div v-if="showPopup" class="page-overlay" @click.stop="showPopup = false" @click.capture="event => event.stopPropagation()"></div>
     <VirtualWaterfall
         :virtual="waterfallOption.virtual"
         :gap="waterfallOption.gap"
@@ -13,215 +12,84 @@
     >
         <template #default="{ item }: { item: ItemOption }">
             <Card
-                @click="
-                    () => {
-                        console.log(showPopup)
-                        showPopup = true // 弹窗打开
-                       }
-                "
+                @click="openPopup(item)"
                 :item="item"
                 :onlyImage="waterfallOption.onlyImage"
-            >
-            </Card>
+            />
         </template>
     </VirtualWaterfall>
-    <aside v-if="asideShow">
-        <form>
-            <div class="form-group form-group-sm mb-2">
-                <label class="form-label fs-6">间隔 <code>[0:100]</code></label>
-                <div class="input-group input-group-sm">
-                    <input
-                        type="number"
-                        class="form-control"
-                        v-model="waterfallOption.gap"
-                        min="0"
-                        max="100"
-                        step="1"
-                    />
-                    <span
-                        class="input-group-text"
-                        id="basic-addon1"
-                    >
-                        px
-                    </span>
-                </div>
-            </div>
-            <div class="form-group form-group-sm mb-2">
-                <label class="form-label fs-6">填充 <code>[0:100]</code></label>
-                <div class="input-group input-group-sm">
-                    <input
-                        type="number"
-                        class="form-control"
-                        v-model="waterfallOption.padding"
-                        min="0"
-                        max="100"
-                        step="1"
-                    />
-                    <span
-                        class="input-group-text"
-                        id="basic-addon1"
-                    >
-                        px
-                    </span>
-                </div>
-            </div>
-            <div class="form-group form-group-sm mb-2">
-                <label class="form-label fs-6">每个元素的最小宽度 <code>[100:600]</code></label>
-                <div class="input-group input-group-sm">
-                    <input
-                        type="number"
-                        class="form-control"
-                        v-model="waterfallOption.itemMinWidth"
-                        min="100"
-                        max="600"
-                        step="1"
-                    />
-                    <span
-                        class="input-group-text"
-                        id="basic-addon1"
-                    >px</span
-                    >
-                </div>
-            </div>
-            <div class="form-group form-group-sm mb-2">
-                <label class="form-label fs-6">距离底部多少加载更多 <code>[0:10000]</code></label>
-                <div class="input-group input-group-sm">
-                    <input
-                        type="number"
-                        class="form-control"
-                        v-model="waterfallOption.bottomDistance"
-                        min="0"
-                        max="1000"
-                        step="1"
-                    />
-                    <span
-                        class="input-group-text"
-                        id="basic-addon1"
-                    >px</span
-                    >
-                </div>
-            </div>
-            <div class="form-group form-group-sm mb-2">
-                <label class="form-label fs-6"
-                >最小列数 <code>[0:{{ waterfallOption.maxColumnCount }}]</code>，最大列数 <code>[{{ waterfallOption.minColumnCount }}:10]</code></label
-                >
-                <div class="input-group input-group-sm">
-                    <input
-                        type="number"
-                        class="form-control"
-                        v-model="waterfallOption.minColumnCount"
-                        min="0"
-                        :max="waterfallOption.maxColumnCount"
-                    />
-                    <span
-                        class="input-group-text"
-                        id="basic-addon1"
-                    >列</span
-                    >
-                    <input
-                        type="number"
-                        class="form-control"
-                        v-model="waterfallOption.maxColumnCount"
-                        :min="waterfallOption.minColumnCount"
-                        max="10"
-                    />
-                    <span
-                        class="input-group-text"
-                        id="basic-addon1"
-                    >列</span
-                    >
-                </div>
-            </div>
-            <div class="form-group form-group-sm mb-2">
-                <label class="form-label fs-6">(顶部/底部)预加载屏 <code>[0:5]</code></label>
-                <div class="input-group input-group-sm">
-                    <input
-                        type="number"
-                        class="form-control"
-                        v-model="waterfallOption.topPreloadScreenCount"
-                        min="0"
-                        max="5"
-                    />
-                    <input
-                        type="number"
-                        class="form-control"
-                        v-model="waterfallOption.bottomPreloadScreenCount"
-                        min="0"
-                        max="5"
-                    />
-                </div>
-            </div>
-            <div class="form-group form-group-sm form-check form-switch mb-1">
-                <label class="form-label fs-6">开启虚拟列表</label>
-                <input
-                    class="form-check-input"
-                    type="checkbox"
-                    v-model="waterfallOption.virtual"
-                />
-            </div>
-            <div class="form-group form-group-sm form-check form-switch mb-2">
-                <label class="form-label fs-6">仅展示图片</label>
-                <input
-                    class="form-check-input"
-                    type="checkbox"
-                    v-model="waterfallOption.onlyImage"
-                />
-            </div>
-            <div class="form-group form-group-sm mb-2">
-                <label class="form-label fs-6">数据展示</label>
-                <p>每页条数: {{ data.size }}</p>
-                <p>当前页码: {{ data.page }} / {{ data.max }}</p>
-                <p>已加载量: {{ data.list.length }} / {{ data.total }}</p>
-                <p>等待加载: {{ waterfallOption.loading }}</p>
-            </div>
-            <button
-                type="button"
-                class="btn btn-primary btn-sm"
-                @click="backTop"
-            >
-                回到顶部
-            </button>
-        </form>
-    </aside>
 
-    <!-- 新增弹窗部分 -->
-    <div
-        v-if="showPopup"
-        class="popup-wrapper"
-    >
-        <div class="popup-content">
-            <!-- 这里放置弹窗内部具体内容 -->
-            <p>这是弹窗里的内容示例，可以替换为实际需要展示的内容哦。</p>
-            <button @click="closePopup" class="close-button">×</button>
-        </div>
+
+    <!-- 优化后的弹窗结构 -->
+    <transition name="popup-fade">
         <div
+            v-if="showPopup"
             class="popup-overlay"
-            @click.stop="showPopup = false"
-            @click.capture="event => event.stopPropagation()"
+            @click.self="closePopup"
         ></div>
-        <!-- 灰色遮罩，点击可关闭弹窗 -->
-    </div>
+    </transition>
+
+    <transition name="popup-scale">
+        <div
+            v-if="showPopup"
+            class="popup-wrapper"
+            role="dialog"
+            aria-modal="true"
+        >
+            <div class="popup-content">
+                <button
+                    @click="closePopup"
+                    class="close-button"
+                    aria-label="关闭弹窗"
+                >
+                    <svg class="close-icon" viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+
+                <div class="popup-body">
+                    <img
+                        v-if="selectedItem?.avatar"
+                        :src="selectedItem.avatar"
+                        class="popup-image"
+                        alt="详情图片"
+                    />
+                    <div class="markdown-content" v-html="renderedDetail"></div>
+                </div>
+            </div>
+        </div>
+    </transition>
 </template>
 
 <script setup lang="ts">
-import pkg from '../../package.json'
 import VirtualWaterfall from '../vue-virtual-waterfall/virtual-waterfall.vue'
 import Card from './Card.vue'
-import useApp from './useApp.ts'
 import useWaterfall from './useWaterfall.ts'
-import { ref } from 'vue'
-
-const { asideShow } = useApp()
-// 新增控制弹窗显示隐藏的响应式数据
-const showPopup = ref(false)
+import { ref, computed } from 'vue'
+import { marked } from 'marked'
+import DOMPurify from 'dompurify'
 
 const { backTop, waterfallOption, data, calcItemHeight } = useWaterfall()
 
-// 关闭弹窗的方法
-const closePopup = () => {
-    showPopup.value = false;
+const showPopup = ref(false)
+const selectedItem = ref<ItemOption | null>(null)
+
+const openPopup = (item: ItemOption) => {
+    selectedItem.value = item
+    showPopup.value = true
 }
 
+const closePopup = () => {
+    showPopup.value = false
+    selectedItem.value = null
+}
+
+const renderedDetail = computed(() => {
+    if (!selectedItem.value?.detail) return ''
+    const rawMarkdown = selectedItem.value.detail
+    const cleanMarkdown = DOMPurify.sanitize(marked(rawMarkdown))
+    return cleanMarkdown
+})
 </script>
 
 <style lang="scss">
@@ -230,15 +98,17 @@ const closePopup = () => {
     margin: 0;
     padding: 0;
 }
+
 .page-overlay {
     position: fixed;
     top: 0;
-    left: 0;
     right: 0;
     bottom: 0; /* 覆盖上面三分之二区域 */
-    background-color: rgba(0, 0, 0, 0.3); /* 灰暗层效果，透明度可根据需求调整 */
+    left: 0;
     z-index: 9998; /* 确保在弹窗内容之下，但在其他页面元素之上 */
+    background-color: rgba(0, 0, 0, 0.3); /* 灰暗层效果，透明度可根据需求调整 */
 }
+
 body {
     padding-top: 72px;
     background: #f1f2f6;
@@ -284,60 +154,147 @@ aside {
         }
     }
 }
+/* 优化后的样式 */
+.popup-fade-enter-active,
+.popup-fade-leave-active {
+    transition: opacity 0.2s ease;
+}
+.popup-fade-enter-from,
+.popup-fade-leave-to {
+    opacity: 0;
+}
 
-/* 新增弹窗样式 */
-.popup-wrapper {
+.popup-scale-enter-active,
+.popup-scale-leave-active {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.popup-scale-enter-from,
+.popup-scale-leave-to {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.popup-overlay {
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 9998;
+}
+
+.popup-wrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    animation: popupSlideUp 0.5s ease-out; /* 弹窗从底部滑入 */
+    width: 90%;
+    max-width: 640px;
+    max-height: 90vh;
 }
 
 .popup-content {
-    width: 100%;
-    max-width: 800px;
-    height: 66vh;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.popup-body {
+    padding: 0 0 0 0;
+    max-height: 80vh;
     overflow-y: auto;
-    padding: 20px;
-    animation: contentSlideUp 0.5s ease-out;
 }
 
 .close-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: transparent;
+    top: 16px;
+    right: 16px;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.1);
     border: none;
-    font-size: 20px;
+    border-radius: 50%;
     cursor: pointer;
-}
+    transition: all 0.2s ease;
+    z-index: 1000;
 
-@keyframes popupSlideUp {
-    0% {
-        transform: translateY(100%);
+    &:hover {
+        background: rgba(0, 0, 0, 0.15);
+        transform: rotate(90deg);
     }
-    100% {
-        transform: translateY(0);
-    }
-}
 
-@keyframes contentSlideUp {
-    0% {
-        transform: translateY(30px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
+    .close-icon {
+        width: 24px;
+        height: 24px;
+        fill: #666;
     }
 }
 
+.popup-image {
+    width: 100%;
+    max-height: 50vh;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.markdown-content {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #333;
+
+    h1, h2, h3 {
+        margin: 0.2em 0 0.2em;
+        color: #2c3e50;
+    }
+
+    p {
+        margin-bottom: 1.2em;
+    }
+
+    a {
+        color: #3498db;
+        text-decoration: underline;
+    }
+
+    code {
+        padding: 2px 6px;
+        background: #f8f9fa;
+        border-radius: 4px;
+        font-family: Monaco, Consolas, monospace;
+    }
+
+    pre {
+        padding: 16px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 16px 0;
+    }
+
+    blockquote {
+        border-left: 4px solid #ddd;
+        padding-left: 16px;
+        color: #666;
+        margin: 16px 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .popup-wrapper {
+        width: 95%;
+    }
+
+    .markdown-content {
+        padding: 24px 16px;
+    }
+
+    .markdown-content {
+        font-size: 14px;
+    }
+}
 </style>

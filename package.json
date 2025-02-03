@@ -34,7 +34,9 @@
     "package.json"
   ],
   "dependencies": {
-    "@vueuse/core": "^11.0.3"
+    "@vueuse/core": "^11.0.3",
+    "dompurify": "^3.2.4",
+    "marked": "^15.0.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.3",
