@@ -325,7 +325,7 @@ onBeforeMount(() => {
 
             .year {
                 color: gray;
-                font-size: 4px; // 调大字体大小，可根据实际需求再调整具体数值
+                font-size: 16px; // 调大字体大小，可根据实际需求再调整具体数值
             }
 
             .recommend-travel {
