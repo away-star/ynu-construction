@@ -16,7 +16,7 @@
                 <div>
                     <h3>{{ item.name }}</h3>
 
-                    <span class="location">
+                    <span class="location" >
                         <svg
                             t="1734265007319"
                             class="icon"
@@ -78,7 +78,7 @@
             <!-- 年份与校区位置区 -->
             <div class="detail-info">
                 <span class="year">{{ item.year }}</span>
-                <span class="recommend-travel"><StarRating :rating="4.5" /></span>
+                <span class="recommend-travel"><StarRating :rating=item.travelStars /></span>
             </div>
         </div>
         <div
@@ -325,12 +325,12 @@ onBeforeMount(() => {
 
             .year {
                 color: gray;
-                font-size: 16px; // 调大字体大小，可根据实际需求再调整具体数值
+                font-size: 14px; // 调大字体大小，可根据实际需求再调整具体数值
             }
 
             .recommend-travel {
                 color: gray;
-                font-size: 4px; // 调大字体大小
+                font-size: 16px; // 调大字体大小
             }
         }
     }
@@ -338,7 +338,7 @@ onBeforeMount(() => {
 
 .location {
     color: gray;
-    font-size: 1px;
+    font-size: 12px;
 }
 
 .v-enter-active,

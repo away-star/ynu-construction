@@ -43,7 +43,7 @@ export default {
 .star {
     position: relative;
     display: inline-block;
-    font-size: 10px;
+    font-size: 14px;
 }
 
 .star-background {
